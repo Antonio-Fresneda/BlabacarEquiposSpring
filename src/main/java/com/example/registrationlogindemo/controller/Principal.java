@@ -1,12 +1,13 @@
 package com.example.registrationlogindemo.controller;
 
 import com.example.registrationlogindemo.entity.Mensaje;
-import com.example.registrationlogindemo.entity.Usuario;
+import com.example.registrationlogindemo.entity.User;
 import com.example.registrationlogindemo.service.ServicioMensajes;
-import com.example.registrationlogindemo.service.ServicioUsuarios;
+import com.example.registrationlogindemo.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,37 +23,31 @@ public class Principal {
     @Autowired
     ServicioMensajes servicioMensajes;
     @Autowired
-    ServicioUsuarios servicioUsuarios;
+    UserService servicioUsuarios;
 
     @GetMapping("/")
     public String principal(Model model){
-        //Recupero la lista de usuarios y la mando a la plantilla para decir quién soy
-        model.addAttribute("lista", servicioUsuarios.findAll());
-        return "identificar";
-    }
-
-    @GetMapping("/destinatario")
-    public String destino(Model model){
         //Recupero la lista de usuarios y la mando a la plantilla para decir quién soy
         model.addAttribute("lista", servicioUsuarios.findAll());
         return "destinatario";
     }
 
 
-    @GetMapping("/elegir/{id}")
+    /*@GetMapping("/elegir/{id}")
     public String elegir(@PathVariable long id, Model model, HttpSession request){
         //Selecciono y guardo en una variable de sesión el usuario actual, el que envía los mensajes
         request.setAttribute("idActual", servicioUsuarios.findById(id).getId());
         System.out.println(request.getAttribute("idActual"));
         return "redirect:/destinatario";
-    }
+    }*/
 
     @GetMapping("/chat/{id}")
-    public String chat(@PathVariable long id, Model model, HttpSession request){
+    public String chat(@PathVariable long id, Model model, HttpSession request, Authentication authentication){
 
         //Envío a la vista el usuario actual (variable de sesión) y el receptor al que le quiere enviar mensajes
-        Usuario actual=servicioUsuarios.findById((long) request.getAttribute("idActual"));
-        Usuario destinatario=servicioUsuarios.findById(id);
+        //User actual=servicioUsuarios.findById((long) request.getAttribute("idActual"));
+        User actual=servicioUsuarios.findByEmail(authentication.getName());
+        User destinatario=servicioUsuarios.findById(id);
         model.addAttribute("actual", actual);  //Esto después lo "cogeremos" de Spring Security
         model.addAttribute("receptor", destinatario);
 

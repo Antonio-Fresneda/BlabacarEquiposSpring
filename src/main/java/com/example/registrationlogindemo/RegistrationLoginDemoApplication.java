@@ -1,9 +1,9 @@
 package com.example.registrationlogindemo;
 
 import com.example.registrationlogindemo.entity.Mensaje;
-import com.example.registrationlogindemo.entity.Usuario;
+import com.example.registrationlogindemo.entity.User;
 import com.example.registrationlogindemo.service.ServicioMensajes;
-import com.example.registrationlogindemo.service.ServicioUsuarios;
+import com.example.registrationlogindemo.service.UserService;
 import com.github.javafaker.Faker;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -20,25 +20,26 @@ public class RegistrationLoginDemoApplication {
 		SpringApplication.run(RegistrationLoginDemoApplication.class, args);
 	}
 	@Bean
-	CommandLineRunner commandLineRunner(ServicioUsuarios servicioUsuarios){
+	CommandLineRunner commandLineRunner(UserService servicioUsuarios){
 		return args -> {
 			if(servicioUsuarios.findAll().size()<1) {
-				servicioUsuarios.save(new Usuario("antonio", "antonio@antonio.com", "https://i.pravatar.cc/150?u=antonio@antonio.com"));
+				//La contraseña es 1234
+				servicioUsuarios.save(new User("antonio", "asalinasci@gmail.com", "https://i.pravatar.cc/150?u=antonio@antonio.com", "$2a$12$QO8HqfpzA7cUGlyDFQ5/FeKfH.laaMRIFsQiQX8oCVStWX0HavrTW"));
 				for (int i = 0; i < 10; i++) {
 					String correo="maria" + i + "@benito.com";
-					servicioUsuarios.save(new Usuario("María " + i, correo, "https://i.pravatar.cc/150?u=" + correo));
+					//La contraseña es 1234
+					servicioUsuarios.save(new User("María " + i, correo, "https://i.pravatar.cc/150?u=" + correo, "$2a$12$QO8HqfpzA7cUGlyDFQ5/FeKfH.laaMRIFsQiQX8oCVStWX0HavrTW"));
 				}
 			}
 		};
 	}
-
 	@Bean
-	CommandLineRunner addMensajes(ServicioMensajes servicio, ServicioUsuarios servicioUsuarios){
+	CommandLineRunner addMensajes(ServicioMensajes servicio, UserService servicioUsuarios){
 		return args -> {
 			//Si no hay mensajes, creo 10 mensajes entre los usurios antonio y María 1
 			if(servicio.findAll().size()<1) {
-				Usuario antonio=servicioUsuarios.findByUsername("antonio");
-				Usuario maria1=servicioUsuarios.findByUsername("María 1");
+				User antonio=servicioUsuarios.findByEmail("asalinasci@gmail.com");
+				User maria1=servicioUsuarios.findByEmail("maria1@benito.com");
 				Faker faker = new Faker(new Locale("es-ES"));
 				for (int i = 0; i < 10; i++) {
 					//El usuario antonio envía un mensaje a María

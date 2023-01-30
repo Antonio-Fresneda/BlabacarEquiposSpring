@@ -3,12 +3,9 @@ package com.example.registrationlogindemo.service.impl;
 import com.example.registrationlogindemo.dto.UserDto;
 import com.example.registrationlogindemo.entity.Role;
 import com.example.registrationlogindemo.entity.User;
-import com.example.registrationlogindemo.entity.Usuario;
-import com.example.registrationlogindemo.repository.RepositorioUsuarios;
 import com.example.registrationlogindemo.repository.RoleRepository;
 import com.example.registrationlogindemo.repository.UserRepository;
 import com.example.registrationlogindemo.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +37,7 @@ public class UserServiceImpl implements UserService {
         //encrypt the password once we integrate spring security
         //user.setPassword(userDto.getPassword());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        Role role = roleRepository.findByName("ROLE_ADMIN");
+        Role role = roleRepository.findByName("ROLE_USER");
         if(role == null){
             role = checkRoleExist();
         }

@@ -1,7 +1,7 @@
 package com.example.registrationlogindemo.service;
 
 import com.example.registrationlogindemo.entity.Mensaje;
-import com.example.registrationlogindemo.entity.Usuario;
+import com.example.registrationlogindemo.entity.User;
 import com.example.registrationlogindemo.repository.RepositorioMensajes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ public class ServicioMensajes {
         return repositorio.findById(id);
     }
 
-    public List<Mensaje> findByEmisorAndDestinatario(Usuario emisor, Usuario destinatario){
+    public List<Mensaje> findByEmisorAndDestinatario(User emisor, User destinatario){
         return repositorio.findByEmisorAndDestinatario(emisor, destinatario);
     }
 

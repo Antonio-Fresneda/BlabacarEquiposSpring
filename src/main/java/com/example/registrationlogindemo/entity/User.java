@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,5 +47,16 @@ public class User
     List<Mensaje> enviados;
     @OneToMany(mappedBy = "destinatario")
     List<Mensaje> recibidos;
+
+    public User(String name, String email){
+        this.name=name;
+        this.email=email;
+    }
+    public User(String name, String email, String avatar, String password){
+        this.name=name;
+        this.email=email;
+        this.avatar=avatar;
+        this.password=password;
+    }
 
 }

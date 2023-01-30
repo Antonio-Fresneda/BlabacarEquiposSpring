@@ -13,7 +13,6 @@ public interface UserService {
     //Métodos nuevos que añado yo para el chat
     List<User> findAll();
     User findById(long id);
-    User findByUsername(String username);
     User save(User usuario);
     void delete(User usuario);
 }

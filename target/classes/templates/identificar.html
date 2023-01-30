@@ -9,15 +9,15 @@
 <body>
 <div class="container">
     <h1>Mensajería simple</h1>
-    <h2 class="text-success">Haz clic en el usuario al que le quieres enviar un mensaje</h2>
+    <h2 class="text-danger">Indica quién eres</h2>
 
     <div class="row" >
         <div class="col-2" th:each="usuario:${lista}">
             <div class="row">
-                <a th:href="'/chat/' + ${usuario.id}"><img class="img-thumbnail rounded-circle" th:src="*{usuario.avatar}"/></a>
+                <a th:href="'/elegir/' + ${usuario.id}"><img class="img-thumbnail rounded-circle" th:src="*{usuario.avatar}"/></a>
             </div>
             <div class="row text-center">
-                <a th:href="'/chat/' + ${usuario.id}"><span th:text="${usuario.email}"></span></a>
+                <a th:href="'/elegir/' + ${usuario.id}"><span th:text="${usuario.username}"></span></a>
             </div>
         </div>
 

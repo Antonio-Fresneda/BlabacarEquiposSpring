@@ -39,4 +39,12 @@ public class User
             inverseJoinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
     private List<Role> roles = new ArrayList<>();
 
+    //Son los campos que añado para el chat a los de la gestión de usuarios
+    private String avatar;
+    private String descripcion;
+    @OneToMany(mappedBy="emisor")
+    List<Mensaje> enviados;
+    @OneToMany(mappedBy = "destinatario")
+    List<Mensaje> recibidos;
+
 }

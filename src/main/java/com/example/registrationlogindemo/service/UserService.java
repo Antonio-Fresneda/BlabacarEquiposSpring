@@ -7,8 +7,13 @@ import java.util.List;
 
 public interface UserService {
     void saveUser(UserDto userDto);
-
     User findByEmail(String email);
-
     List<UserDto> findAllUsers();
+
+    //Métodos nuevos que añado yo para el chat
+    List<User> findAll();
+    User findById(long id);
+    User findByUsername(String username);
+    User save(User usuario);
+    void delete(User usuario);
 }

@@ -3,9 +3,12 @@ package com.example.registrationlogindemo.service.impl;
 import com.example.registrationlogindemo.dto.UserDto;
 import com.example.registrationlogindemo.entity.Role;
 import com.example.registrationlogindemo.entity.User;
+import com.example.registrationlogindemo.entity.Usuario;
+import com.example.registrationlogindemo.repository.RepositorioUsuarios;
 import com.example.registrationlogindemo.repository.RoleRepository;
 import com.example.registrationlogindemo.repository.UserRepository;
 import com.example.registrationlogindemo.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -70,5 +73,24 @@ public class UserServiceImpl implements UserService {
         Role role = new Role();
         role.setName("ROLE_ADMIN");
         return roleRepository.save(role);
+    }
+    //Métodos nuevos que añado yo para el chat
+    public List<User> findAll(){
+        return userRepository.findAll();
+    }
+
+    public User findById(long id){
+        return userRepository.findById(id);
+    }
+
+    public User findByUsername(String username){return userRepository.findByName(username);}
+
+    public User save(User usuario){
+        userRepository.save(usuario);
+        return usuario;
+    }
+
+    public void delete(User usuario){
+        userRepository.delete(usuario);
     }
 }

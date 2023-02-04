@@ -59,9 +59,11 @@ public class UserServiceImpl implements UserService {
 
     private UserDto convertEntityToDto(User user){
         UserDto userDto = new UserDto();
-        String[] name = user.getName().split(" ");
+        /*String[] name = user.getName().split(" ");
         userDto.setFirstName(name[0]);
-        userDto.setLastName(name[1]);
+        userDto.setLastName(name[1]);*/
+        userDto.setFirstName(user.getName());
+        userDto.setLastName(user.getName());
         userDto.setEmail(user.getEmail());
         return userDto;
     }
@@ -89,5 +91,8 @@ public class UserServiceImpl implements UserService {
 
     public void delete(User usuario){
         userRepository.delete(usuario);
+    }
+    public void deleteById(long id){
+        userRepository.deleteById(id);
     }
 }

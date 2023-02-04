@@ -14,10 +14,10 @@ import java.time.LocalDate;
 import java.util.Locale;
 
 @SpringBootApplication
-public class RegistrationLoginDemoApplication {
+public class SpringChatBasicoSeguridadApp {
 
 	public static void main(String[] args) {
-		SpringApplication.run(RegistrationLoginDemoApplication.class, args);
+		SpringApplication.run(SpringChatBasicoSeguridadApp.class, args);
 	}
 	@Bean
 	CommandLineRunner commandLineRunner(UserService servicioUsuarios){

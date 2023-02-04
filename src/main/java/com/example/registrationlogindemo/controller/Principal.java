@@ -44,8 +44,6 @@ public class Principal {
     @GetMapping("/chat/{id}")
     public String chat(@PathVariable long id, Model model, HttpSession request, Authentication authentication){
 
-        //Envío a la vista el usuario actual (variable de sesión) y el receptor al que le quiere enviar mensajes
-        //User actual=servicioUsuarios.findById((long) request.getAttribute("idActual"));
         User actual=servicioUsuarios.findByEmail(authentication.getName());
         User destinatario=servicioUsuarios.findById(id);
         model.addAttribute("actual", actual);  //Esto después lo "cogeremos" de Spring Security

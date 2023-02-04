@@ -66,7 +66,7 @@ public class AuthController {
         return "users";
     }
     @PostMapping("/delete")
-    public String borrar(@RequestParam("userid") long userid, Model model){
+    public String borrar(@RequestParam("userid") Long userid, Model model){
         userService.deleteById(userid);
         return "redirect:/users";
     }

@@ -62,6 +62,7 @@ public class UserServiceImpl implements UserService {
         /*String[] name = user.getName().split(" ");
         userDto.setFirstName(name[0]);
         userDto.setLastName(name[1]);*/
+        userDto.setId(user.getId());
         userDto.setFirstName(user.getName());
         userDto.setLastName(user.getName());
         userDto.setEmail(user.getEmail());

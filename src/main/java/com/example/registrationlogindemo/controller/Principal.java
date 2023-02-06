@@ -32,15 +32,6 @@ public class Principal {
         return "destinatario";
     }
 
-
-    /*@GetMapping("/elegir/{id}")
-    public String elegir(@PathVariable long id, Model model, HttpSession request){
-        //Selecciono y guardo en una variable de sesión el usuario actual, el que envía los mensajes
-        request.setAttribute("idActual", servicioUsuarios.findById(id).getId());
-        System.out.println(request.getAttribute("idActual"));
-        return "redirect:/destinatario";
-    }*/
-
     @GetMapping("/chat/{id}")
     public String chat(@PathVariable long id, Model model, HttpSession request, Authentication authentication){
 

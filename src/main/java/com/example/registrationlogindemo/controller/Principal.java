@@ -37,7 +37,7 @@ public class Principal {
 
         User actual=servicioUsuarios.findByEmail(authentication.getName());
         User destinatario=servicioUsuarios.findById(id);
-        model.addAttribute("actual", actual);  //Esto después lo "cogeremos" de Spring Security
+        model.addAttribute("actual", actual);
         model.addAttribute("receptor", destinatario);
 
         //Debo enviar a la vista la lista de mensajes de "actual" a "destinatario" y viceversa

@@ -33,12 +33,26 @@ public class User
     @Column(nullable=false)
     private String password;
 
+
+
+    @OneToMany(mappedBy = "propietario")
+    private List<Oferta> ofertas;
+
+
+
+    @OneToMany(mappedBy = "opinador")
+    private List<Opiniones> opinionesEnviadas;
+
+
+
     @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinTable(
             name="users_roles",
             joinColumns={@JoinColumn(name="USER_ID", referencedColumnName="ID")},
             inverseJoinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
     private List<Role> roles = new ArrayList<>();
+
+
 
     //Son los campos que añado para el chat a los de la gestión de usuarios
     private String avatar;
@@ -47,6 +61,7 @@ public class User
     List<Mensaje> enviados;
     @OneToMany(mappedBy = "destinatario")
     List<Mensaje> recibidos;
+
 
     public User(String name, String email){
         this.name=name;
@@ -58,5 +73,7 @@ public class User
         this.avatar=avatar;
         this.password=password;
     }
+
+
 
 }

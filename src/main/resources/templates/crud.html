@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Crud</title>
+    <div th:insert="components/fragments ::head"></div>
+</head>
+<body>
+<div th:replace="components/fragments :: nav_bar"></div>
+<br>
+<br>
+<div class="container">
+    <br>
+    <!--La url de href debe aparecer en el controlador para mostrar el formulario que añade registros-->
+    <a href="/" class="btn btn-primary">Volver</a>
+    <a href="/crud/add" class="btn btn-primary">Añadir Ofertas</a>
+    <br>
+    <table class="table stripped">
+        <tr>
+            <th>Destino</th>
+            <th>Equipo</th>
+            <th>Conductor</th>
+            <th>PuntoSalida</th>
+            <th>FechaViaje</th>
+            <th>Modificar</th>
+            <th>Borrar</th>
+        </tr>
+        <tr th:each="o:${ofertas}">
+            <td th:text="${o.destino}"></td>
+            <td th:text="${o.equipo.nombreEquipo}"></td>
+            <td th:text="${o.propietario.name}"></td>
+            <td th:text="${o.puntoSalida}"></td>
+            <td th:text="${o.fechaViaje}"></td>
+
+            <td>
+
+                <a th:href="'/crud/update/' + ${o.id}" class="btn btn-primary">Modificar</a>
+            </td>
+            <td>
+
+                <a th:href="'/crud/delete/' + ${o.id}" class="btn btn-danger">Borrar</a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>

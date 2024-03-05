@@ -9,7 +9,6 @@
 <body>
     <div class="container" id="container">
         <h1>Conversaciones entre <span th:text="${actual.email}"></span> y <span th:text="${receptor.email}"></span></h1>
-        <h6 class="border-bottom my-4"><a href="/">[Elegir otro destinatario]</a></h6>
         <div class="row" style="max-height: 50vh; overflow-y:auto; overflow-x: hidden;" id="mensajes">
             <div class="row border m-4" th:each="mensaje:${listaMensajes}">
                 <div class="col-8">

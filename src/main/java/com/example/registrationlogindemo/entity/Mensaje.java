@@ -2,6 +2,7 @@ package com.example.registrationlogindemo.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
@@ -19,6 +20,7 @@ public class Mensaje {
     private User destinatario;
     @Column(columnDefinition = "TEXT")
     private String contenido;
+    @DateTimeFormat(pattern = "dd/MM/YYYY")
     private LocalDateTime fecha;
 
     public Mensaje(){
@@ -30,5 +32,8 @@ public class Mensaje {
         this.emisor=emisor;
         this.destinatario=destinatario;
         this.contenido=contenido;
+    }
+
+    public void setFecha(LocalDateTime localDateTime) {
     }
 }

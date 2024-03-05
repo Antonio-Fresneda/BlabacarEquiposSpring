@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Equipos</title>
+    <div th:insert="components/fragments ::head"></div>
+    <style>
+        .table {
+            width: 100%; /* Establece el ancho de la tabla al 100% */
+        }
+
+        .table img {
+            max-width: 100px; /* Ajusta el ancho máximo de la imagen */
+            max-height: 100px; /* Ajusta la altura máxima de la imagen */
+        }
+
+        .table th,
+        .table td {
+            text-align: center; /* Alinea el contenido de las celdas al centro */
+        }
+    </style>
+</head>
+<body>
+<div th:replace="components/fragments ::nav_bar"></div>
+<br>
+<br>
+<div class="container">
+    <br>
+    <br>
+    <table class="table stripped">
+        <colgroup>
+            <col style="width: 50%;"> <!-- Establece el ancho de la primera columna al 50% -->
+            <col style="width: 50%;"> <!-- Establece el ancho de la segunda columna al 50% -->
+        </colgroup>
+        <tr>
+            <th>Equipo</th>
+            <th>Escudo</th>
+        </tr>
+        <tr th:each="equipo:${equipos}">
+            <td th:text="${equipo.nombreEquipo}"></td>
+            <td>
+                <img th:src="${equipo.escudo}" alt="Escudo"/>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

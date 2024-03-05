@@ -1,13 +1,17 @@
 package com.example.registrationlogindemo.service.impl;
 
 import com.example.registrationlogindemo.dto.UserDto;
+import com.example.registrationlogindemo.entity.Oferta;
 import com.example.registrationlogindemo.entity.Role;
 import com.example.registrationlogindemo.entity.User;
+import com.example.registrationlogindemo.repository.RepositorioOferta;
 import com.example.registrationlogindemo.repository.RoleRepository;
 import com.example.registrationlogindemo.repository.UserRepository;
 import com.example.registrationlogindemo.service.UserService;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,6 +23,10 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
+
+    private RepositorioOferta repositorioOferta;
+
+
 
     public UserServiceImpl(UserRepository userRepository,
                            RoleRepository roleRepository,
@@ -96,4 +104,6 @@ public class UserServiceImpl implements UserService {
     public void deleteById(long id){
         userRepository.deleteById(id);
     }
+
+
 }

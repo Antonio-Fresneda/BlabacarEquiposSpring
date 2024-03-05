@@ -4,17 +4,24 @@ import com.example.registrationlogindemo.entity.Mensaje;
 import com.example.registrationlogindemo.entity.User;
 import com.example.registrationlogindemo.service.ServicioMensajes;
 import com.example.registrationlogindemo.service.UserService;
+import com.example.registrationlogindemo.storage.StorageProperties;
+import com.example.registrationlogindemo.storage.StorageService;
 import com.github.javafaker.Faker;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
 import java.time.LocalDate;
 import java.util.Locale;
 
 @SpringBootApplication
+@EnableConfigurationProperties(StorageProperties.class)
 public class SpringChatBasicoSeguridadApp {
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringChatBasicoSeguridadApp.class, args);
@@ -54,4 +61,13 @@ public class SpringChatBasicoSeguridadApp {
 			}
 		};
 	}
+	@Bean
+	CommandLineRunner init(StorageService storageService) {
+		return (args) -> {
+
+			storageService.init();
+		};
+	}
+
+
 }

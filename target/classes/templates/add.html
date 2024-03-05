@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nueva Oferta</title>
+    <th:replace th:replace="components/fragments :: head"></th:replace>
+    <div th:replace="components/fragments :: head"></div>
+</head>
+<body>
+   <!-- <div th:replace="components/fragments :: head"></div-->
+   <div th:replace="components/fragments :: nav_bar"></div>
+    <h1 class="animate_animated animate__wobble">Nueva Oferta</h1>
+
+    <br>
+   <form th:action="${formOferta.id == null} ? @{/crud/save} : @{/crud/modificar}" method="post" enctype="multipart/form-data" th:object="${formOferta}">
+       <div class="container">
+           <div class="row">
+               <input type="hidden" class="form-control" th:field="*{id}">
+               <div class="col-md-6">
+                   <div class="form-group">
+                       <label for="destino">Destino</label>
+                       <input type="text" class="form-control" id="destino" th:field="*{destino}" required/>
+                   </div>
+               </div>
+               <div class="col-md-6">
+                   <div class="form-group">
+                       <label for="PuntoSalida">Punto Salida</label>
+                       <input type="text" class="form-control" id="puntoSalida" th:field="*{puntoSalida}" required/>
+                   </div>
+               </div>
+           </div>
+           <div class="col-md-6">
+               <div class="form-group">
+                   <label for="propietario">Conductor</label>
+                   <input type="text" id="propietario" class="form-control" th:field="*{propietario}" th:value="${username}" readonly required/>
+               </div>
+           </div>
+
+           <div class="row">
+               <div class="col-md-6">
+                   <div class="form-group">
+                       <label for="fechaViaje">Fecha</label>
+                       <input type="date" class="form-control" id="fechaViaje" th:field="*{fechaViaje}" th:format="yyyy-MM-dd"/>
+                   </div>
+               </div>
+
+           </div>
+
+           <div class="row">
+               <div class="col-md-6">
+                   <div class="form-group">
+                       <label for="plazas">Plazas</label>
+                       <select class="form-control" id="plazas" th:field="*{plazas}" required>
+                           <option value="0" th:value="0">Seleccione unas Plazas</option>
+                           <option value="1">1</option>
+                           <option value="2">2</option>
+                           <option value="3">3</option>
+                           <option value="4">4</option>
+                           <option value="5">5</option>
+                           <option value="6">6</option>
+                       </select>
+                   </div>
+               </div>
+           </div>
+           <div class="col-md-6">
+               <div class="form-group">
+                   <label for="equipos">Equipos</label>
+                   <select class="form-control" id="equipos" th:field="*{equipo.id}" required>
+                       <option value="0" th:value="0">Seleccione un Equipo</option>
+                       <option th:each="equipo : ${equipos}" th:value="${equipo.id}" th:text="${equipo.nombreEquipo}"></option>
+                   </select>
+               </div>
+           </div>
+           <div class="col-md-6">
+               <div class="form-group">
+                   <label for="vehiculo">Vehiculo</label>
+                   <input type="file" class="form-control" name="file" id="vehiculo" accept="image/*">
+
+                   <div th:if="${formOferta.vehiculo}">
+                       <img th:src="${formOferta.vehiculo}" class="img-thumbnail">
+                   </div>
+               </div>
+           </div>
+
+           <br>
+           <div class="row">
+               <div class="col-md-12">
+                   <button type="submit" class="btn btn-primary">Guardar</button>
+                   <br>
+                   <br>
+                   <br>
+                   <p><a href="/" class="btn btn-primary">Volver al listado</a></p>
+               </div>
+           </div>
+       </div>
+   </form>
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nueva Oferta</title>
+    <th:replace th:replace="components/fragments :: head"></th:replace>
+    <div th:replace="components/fragments :: head"></div>
+</head>
+<body>
+    <form th:action="@{/antonio/submit}" method="post" enctype="multipart/form-data">
+        <input type="file" name="fichero">
+        <input type="submit" value="Enviar">
+
+
+    </form>
+</body>
+</html>

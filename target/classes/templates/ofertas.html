@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ofertas</title>
+    <th:replace th:replace="components/fragments :: head"></th:replace>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        h1.animate_animated {
+            animation: wobble 1s infinite;
+        }
+
+        .title {
+            animation: none; /* Detiene la animación */
+            color: #343a40; /* Cambia el color del texto */
+            text-align: center;
+            font-size: 2rem;
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            margin: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+        }
+
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-text {
+            margin-bottom: 1rem;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        @keyframes wobble {
+            25% {
+                transform: translateX(5px) rotate(-5deg);
+            }
+            50% {
+                transform: translateX(-5px) rotate(5deg);
+            }
+            75% {
+                transform: translateX(4px) rotate(-4deg);
+            }
+            100% {
+                transform: translateX(-4px) rotate(4deg);
+            }
+        }
+        .card-img-top {
+        height: 200px; /* Puedes ajustar el valor según tus necesidades */
+        width: 100%;   /* Añadido para que todas las imágenes tengan el mismo ancho */
+        object-fit: cover;
+    </style>
+</head>
+
+<body>
+
+
+<div th:replace="components/fragments :: nav_bar"></div>
+<br>
+
+<br>
+<div class="container">
+    <div th:if="${username}">
+        <p class="title">Bienvenido, <span class="title" th:text="${username}"></span>!</p>
+    </div>
+    <h1 class="title">Ofertas Disponibles</h1>
+    <div class="row">
+        <div th:each="oferta:${propuesta}" class="col-md-4">
+            <div class="card">
+                <img class="card-img-top" th:src="*{oferta.equipo.escudo}"/>
+                <div class="card-body">
+
+                    <h5 class="card-title">Destino: <span th:text="${oferta.destino}"></span></h5>
+                    <h7 class="card-title">Equipo: <span th:text="${oferta.equipo.nombreEquipo}"></span></h7>
+                    <h6 class="card-title" th:if="${oferta != null}"> <a th:href="'/user/' + ${oferta.propietario.email}">
+                        Conductor: <span th:if="${oferta.propietario != null}" th:text="${oferta.propietario.name}"></span></a>
+                    </h6>
+
+                    <h7 class="card-title">Punto Salida: <span th:text="${oferta.puntoSalida}"></span></h7>
+                    <a th:href="'/oferta/'+${oferta.id}" class="btn btn-primary">Ver Oferta</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="components/fragments :: footer"></div>
+</body>
+
+</html>

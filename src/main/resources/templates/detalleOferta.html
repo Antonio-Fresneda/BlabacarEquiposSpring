@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Título de la Página</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        .card-img-top {
+            height: 200px;
+            width: 200px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin: 0 auto;
+        }
+
+        .navbar {
+            background-color: #007bff;
+        }
+
+        .large-text {
+            font-size: 1.5em;
+        }
+
+        .passenger-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .passenger-avatar {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .offer-info {
+            margin-top: 20px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 20px;
+        }
+
+        .offer-info h5, .offer-info h6, .offer-info p, .offer-info h8, .offer-info h7 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .passengers-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+<div th:replace="components/fragments :: nav_bar"></div>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-4 text-center">
+            <h3 class="large-text">Equipo</h3>
+            <img class="card-img-top" th:src="*{o.equipo.escudo}" alt="Escudo del Equipo"/>
+        </div>
+        <div class="col-md-4 text-center">
+            <h3 class="large-text">Conductor</h3>
+            <img class="card-img-top" th:src="*{o.propietario.avatar}" alt="Avatar del Conductor"/>
+        </div>
+        <div class="col-md-4 text-center">
+            <h3 class="large-text">Vehiculo</h3>
+            <img class="card-img-top" th:src="*{o.vehiculo}" alt="Vehiculo del Conductor"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card-body">
+                <div class="offer-info">
+                    <h5 class="card-title animate__wobble">Destino: <span th:text="${o.destino}"></span></h5>
+                    <h6 class="card-title">
+                        Conductor:
+                        <a th:href="'/user/' + ${o.propietario.email}" th:text="${o.propietario.name}"></a>
+                    </h6>
+                    <p class="card-title animate__wobble">Punto Salida: <span th:text="${o.puntoSalida}"></span></p>
+                    <h8 class="card-title">Equipo: <span th:text="${o.equipo.nombreEquipo}"></span></h8>
+                    <p class="card-title animate__wobble">Plazas: <span th:text="${o.plazas}"></span></p>
+                    <p class="card-text">Fecha de Viaje: <span th:text="${o.fechaViaje}"></span></p>
+                    <br>
+                    <form th:action="@{'/oferta/' + ${o.id} + '/apuntarse'}" method="post" th:object="${nuevoPasajero}">
+                        <button type="submit" class="btn btn-primary mt-3">Apuntarse</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4 passengers-container">
+        <div class="col-md-12">
+            <h3 class="large-text">Pasajeros</h3>
+            <div th:each="pasajero : ${pasajeros}">
+                <div class="passenger-info">
+                    <img th:src="${pasajero.usuario.avatar}" alt="Avatar" class="passenger-avatar">
+                    <h6 class="card-title large-text">
+                        <a th:href="'/user/' + ${pasajero.usuario.email}" th:text="${pasajero.usuario.name}"></a>
+                    </h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+<div class="container mt-4" id="container">
+    <div class="conversation-container">
+        <h1>Conversaciones entre <span th:text="${actual.email}"></span> y <span th:text="${receptor.email}"></span></h1>
+        <div class="row" style="max-height: 50vh; overflow-y:auto; overflow-x: hidden;" id="mensajes">
+            <div class="row border m-4" th:each="mensaje:${listaMensajes}">
+                <div class="col-8">
+                    <img class="rounded-circle" style="width: 50px;" th:src="*{mensaje.emisor.avatar}"/>
+                    <span
+                            th:class="${mensaje.emisor.email==actual.email} ? 'text-info' : 'text-danger'"
+                            th:text="${mensaje.emisor.email}">
+                    </span>:&nbsp;
+                    <span th:text="${mensaje.contenido}"></span>
+                    <span class="text-secondary" style="font-size: 9px;" th:text="${mensaje.fecha}"></span>
+                </div>
+            </div>
+        </div>
+
+        <form action="" method="post" th:action="@{/enviar}" th:object="${mensaje}">
+            <!-- Formulario de envío de mensajes -->
+            <div id="idForm" class="row">
+                <input type="hidden" name="emisor" th:value="${actual.id}">
+                <input type="hidden" name="destinatario" th:value="${receptor.id}" >
+
+                <div class="col-11">
+                    <textarea th:field="*{contenido}" rows="3" placeholder="Escribe tu mensaje aquí y pulsa enviar" style="width:100%;"></textarea>
+                </div>
+                <div class="col-1">
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </div>
+            </div>
+        </form>
+        <button class="btn btn-success" href="#">Refrescar</button>
+    </div>
+</div>
+
+<script>
+    var objDiv = document.getElementById("mensajes");
+    objDiv.scrollTop = objDiv.scrollHeight;
+</script>
+</body>
+</html>
